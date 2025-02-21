@@ -27,9 +27,15 @@ public class MainApp {
 //			retreiveCoursesAndStudents(appDao);
 //			retreiveCoursesAndStudentsByStudentId(appDao);
 //			addMoreCourseToStudent(appDao);
-			deleteCourse(appDao);
-
+//			deleteCourse(appDao);
+            deleteStudent(appDao);
 		};
+	}
+
+	private void deleteStudent(AppDao appDao) {
+		int id=1;
+		appDao.deleteStudentById(id);
+		System.out.println("student deleted "+id);
 	}
 
 	private void addMoreCourseToStudent(AppDao appDao) {

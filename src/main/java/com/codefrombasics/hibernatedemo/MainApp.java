@@ -26,7 +26,8 @@ public class MainApp {
 //			createCoursesAndStudent(appDao);
 //			retreiveCoursesAndStudents(appDao);
 //			retreiveCoursesAndStudentsByStudentId(appDao);
-			addMoreCourseToStudent(appDao);
+//			addMoreCourseToStudent(appDao);
+			deleteCourse(appDao);
 
 		};
 	}

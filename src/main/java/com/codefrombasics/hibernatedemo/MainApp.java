@@ -1,10 +1,7 @@
 package com.codefrombasics.hibernatedemo;
 
-import com.codefrombasics.hibernatedemo.entity.Course;
-import com.codefrombasics.hibernatedemo.entity.Instructor;
-import com.codefrombasics.hibernatedemo.entity.InstructorDetails;
+import com.codefrombasics.hibernatedemo.entity.*;
 import com.codefrombasics.hibernatedemo.dao.AppDao;
-import com.codefrombasics.hibernatedemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +22,62 @@ public class MainApp {
 		return runner->{
 //			createCourseAndReviews(appDao);
 //			retrieveCourseAndReviews(appDao);
-			deleteCourseAndReviews(appDao);
+//			deleteCourseAndReviews(appDao);
+//			createCoursesAndStudent(appDao);
+//			retreiveCoursesAndStudents(appDao);
+//			retreiveCoursesAndStudentsByStudentId(appDao);
+			addMoreCourseToStudent(appDao);
+
 		};
+	}
+
+	private void addMoreCourseToStudent(AppDao appDao) {
+		int id=1;
+		Student student=appDao.findCourseAndStudentsByStudentId(1);
+		System.out.println("adding course to the student "+student.getFirstName().toUpperCase());
+		//create two new courses
+		Course newCourse1=new Course("Azure Data Factory");
+		Course newCourse2=new Course("Snowflake");
+		student.addCourse(newCourse1);
+		student.addCourse(newCourse2);
+
+		appDao.updateStudent(student);
+		System.out.println("Updated students with new courses"+newCourse1.getTitle()+" "+newCourse2.getTitle());
+	}
+
+	private void retreiveCoursesAndStudents(AppDao appDao) {
+		int id=10;
+		Course course=appDao.findCourseAndStudentsByCourseId(10);
+		System.out.println("Course Name "+course.getTitle().toUpperCase());
+		for(Student student: course.getStudents()) {
+			System.out.println("Student " + student);
+		}
+	}
+
+	private void retreiveCoursesAndStudentsByStudentId(AppDao appDao) {
+		int id=1;
+		Student student=appDao.findCourseAndStudentsByStudentId(id);
+		System.out.println("Student Name "+student.getFirstName().toUpperCase());
+		for(Course course: student.getCourses()) {
+			System.out.println("Course " + course);
+		}
+	}
+
+	private void createCoursesAndStudent(AppDao appDao){
+		//create course
+		Course newCourse=new Course("PySpark and Databricks");
+
+		//create students
+		Student student1=new Student("Karthik","Madan","km@gmail.com");
+		Student student2=new Student("Sathish","Kumar","sk@gmail.com");
+
+		//add the above students to course
+		newCourse.addStudent(student1);
+		newCourse.addStudent(student2);
+
+		//save the newCourse
+		appDao.save(newCourse);
+
 	}
 	private void deleteCourseAndReviews(AppDao appDao) {
 

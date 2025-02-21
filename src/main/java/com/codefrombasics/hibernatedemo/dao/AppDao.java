@@ -3,6 +3,7 @@ package com.codefrombasics.hibernatedemo.dao;
 import com.codefrombasics.hibernatedemo.entity.Course;
 import com.codefrombasics.hibernatedemo.entity.Instructor;
 import com.codefrombasics.hibernatedemo.entity.InstructorDetails;
+import com.codefrombasics.hibernatedemo.entity.Student;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface AppDao {
     void deleteCourseById(int theId);
     void save(Course course);
     Course findCourseAndReviewsByCourseId(int theId);
+    Course findCourseAndStudentsByCourseId(int theId);
+    Student findCourseAndStudentsByStudentId(int theId);
+
+    void updateStudent(Student student);
 }

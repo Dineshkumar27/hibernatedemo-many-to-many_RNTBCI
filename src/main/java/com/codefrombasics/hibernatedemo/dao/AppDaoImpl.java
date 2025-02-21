@@ -3,6 +3,7 @@ package com.codefrombasics.hibernatedemo.dao;
 import com.codefrombasics.hibernatedemo.entity.Course;
 import com.codefrombasics.hibernatedemo.entity.Instructor;
 import com.codefrombasics.hibernatedemo.entity.InstructorDetails;
+import com.codefrombasics.hibernatedemo.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -143,5 +144,41 @@ public class AppDaoImpl implements AppDao{
         Course course = query.getSingleResult();
 
         return course;
+    }
+
+    @Override
+    public Course findCourseAndStudentsByCourseId(int theId) {
+        TypedQuery<Course> query = entityManager.createQuery(
+                "select c from Course c "
+                        + "JOIN FETCH c.students "
+                        + "where c.id = :data", Course.class);
+
+        query.setParameter("data", theId);
+
+        // execute query
+        Course course = query.getSingleResult();
+
+        return course;
+    }
+
+    @Override
+    public Student findCourseAndStudentsByStudentId(int theId) {
+        TypedQuery<Student> query = entityManager.createQuery(
+                "select s from Student s "
+                        + "JOIN FETCH s.courses "
+                        + "where s.id = :data", Student.class);
+
+        query.setParameter("data", theId);
+
+        // execute query
+        Student student = query.getSingleResult();
+
+        return student;
+    }
+
+    @Override
+    @Transactional
+    public void updateStudent(Student student) {
+        entityManager.merge(student);
     }
 }
